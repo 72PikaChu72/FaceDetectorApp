@@ -24,7 +24,7 @@ class FaceDetectorApp(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         
-        # Устранение ошибки при отсутствии камеры
+        # Вывод ошибки при отсутствии камеры
         self.CameraNotFoundLabel = QLabel("Камера не найдена")
         self.CameraNotFoundLabel.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.CameraNotFoundLabel)
@@ -40,6 +40,7 @@ class FaceDetectorApp(QWidget):
 
         self.label = QLabel()
         
+        # Создание комбобокса для выбора источника видео
         self.video_source_combobox = QComboBox()
         self.video_source_combobox.addItems(map(str, self.video_sources))
         self.video_source_combobox.currentIndexChanged.connect(self.update_video_source)
@@ -47,9 +48,11 @@ class FaceDetectorApp(QWidget):
         self.text = QLabel("Изменить источник видео")
         self.snapshot_button = QPushButton("Сделать снимок")
         self.snapshot_button.clicked.connect(self.take_snapshot)
-
+        
+        # Создание кнопки для отзеркаливания изображения
         self.mirror_button = QPushButton("Зеркальное изображение")
         self.mirror_button.clicked.connect(self.mirror_image)
+        
         # Создание горизонтального слоя для текста и комбобокса
         self.box = QHBoxLayout()
         self.box.setSpacing(0)
@@ -62,6 +65,7 @@ class FaceDetectorApp(QWidget):
         self.layout.addWidget(self.snapshot_button)
         self.layout.addWidget(self.mirror_button)
         
+        #Таймер для обновления кадра
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(0)
