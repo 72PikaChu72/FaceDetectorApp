@@ -2,7 +2,6 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QComboBox, QPushButton, QFileDialog,QHBoxLayout
 from PyQt5.QtGui import QImage, QPixmap, QIcon
 from PyQt5.QtCore import QTimer,Qt
-from time import sleep
 import cv2
 
 class FaceDetectorApp(QWidget):
@@ -10,7 +9,7 @@ class FaceDetectorApp(QWidget):
         super().__init__()
         self.image = None
         self.mirror = False  # Переменная для хранения информации о том, отзеркалено ли изображение
-        icon = QIcon('icon.png')  # Замените 'path_to_icon.png' на путь к вашей иконке
+        icon = QIcon('icon.png')
         self.video_sources = None
         
         # Фиксированный размер окна
@@ -41,8 +40,6 @@ class FaceDetectorApp(QWidget):
 
         self.label = QLabel()
         
-        
-        
         self.video_source_combobox = QComboBox()
         self.video_source_combobox.addItems(map(str, self.video_sources))
         self.video_source_combobox.currentIndexChanged.connect(self.update_video_source)
@@ -64,15 +61,10 @@ class FaceDetectorApp(QWidget):
         self.layout.addLayout(self.box)
         self.layout.addWidget(self.snapshot_button)
         self.layout.addWidget(self.mirror_button)
-
-        
         
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_frame)
         self.timer.start(0)
-        
-        
-        
 
     def update_frame(self):
         ret, frame = self.vid.read()
